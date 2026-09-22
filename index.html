@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Crown &amp; Cut | Haircuts, beard trims and line-ups</title>
+    <meta name="description" content="Walk in tired, walk out sharp. Haircuts, beard trims and line-ups. Book on WhatsApp.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ---------- Colours (change them here and the whole site updates) ---------- */
+        :root {
+            --ink: #141414;
+            --card: #1b1b1b;
+            --charcoal: #292929;
+            --gold: #d4af37;
+            --muted: #a3a3a3;
+            --paper: #f3f0e8;
+            --pole-red: #c8102e;
+            --pole-blue: #1f4e9c;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+        body {
+            font-family: "Barlow", Arial, sans-serif;
+            background: var(--ink);
+            color: var(--paper);
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        h1, h2, h3 {
+            font-family: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+            font-weight: 700;
+            line-height: 1.05;
+        }
+
+        a { color: inherit; }
+
+        :focus-visible { outline: 3px solid var(--paper); outline-offset: 3px; }
+
+        .wrap { width: min(1100px, 92%); margin: 0 auto; }
+
+        /* ---------- Header ---------- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(20, 20, 20, 0.94);
+            border-bottom: 1px solid var(--charcoal);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 14px 0;
+        }
+
+        .logo {
+            font-family: "Barlow Condensed", Arial, sans-serif;
+            font-weight: 700;
+            font-size: 1.7rem;
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .nav ul { display: flex; gap: 26px; list-style: none; }
+        .nav ul a { text-decoration: none; color: var(--muted); font-weight: 500; }
+        .nav ul a:hover { color: var(--paper); }
+
+        /* ---------- Buttons ---------- */
+        .btn {
+            display: inline-block;
+            padding: 13px 26px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            background: var(--gold);
+            color: #141414;
+            border: 2px solid var(--gold);
+            transition: background 0.2s, color 0.2s;
+        }
+        .btn:hover { background: transparent; color: var(--gold); }
+
+        .btn-ghost { background: transparent; color: var(--paper); border-color: var(--charcoal); }
+        .btn-ghost:hover { border-color: var(--paper); color: var(--paper); background: transparent; }
+
+        /* ---------- Hero ---------- */
+        .hero { padding: 90px 0 100px; }
+
+        .hero .wrap {
+            display: grid;
+            grid-template-columns: 1.4fr 0.6fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(3.2rem, 9vw, 6.4rem);
+            letter-spacing: -0.01em;
+            margin-bottom: 22px;
+        }
+
+        .hero p { color: var(--muted); max-width: 46ch; margin-bottom: 34px; }
+
+        .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+
+        /* The barber pole: the one memorable thing on the page */
+        .pole { display: flex; flex-direction: column; align-items: center; justify-self: center; }
+
+        .pole-cap {
+            width: 118px;
+            height: 24px;
+            background: var(--gold);
+            border-radius: 8px;
+        }
+
+        .pole-tube {
+            position: relative;
+            width: 92px;
+            height: 320px;
+            background-image: repeating-linear-gradient(
+                45deg,
+                var(--pole-red) 0 20px,
+                var(--paper) 20px 40px,
+                var(--pole-blue) 40px 60px,
+                var(--paper) 60px 80px
+            );
+            background-size: 113.14px 113.14px;
+            animation: spin 5s linear infinite;
+        }
+
+        /* shading so the flat stripes look like a round glass tube */
+        .pole-tube::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg,
+                rgba(0, 0, 0, 0.5) 0%,
+                rgba(255, 255, 255, 0.28) 30%,
+                rgba(255, 255, 255, 0) 55%,
+                rgba(0, 0, 0, 0.55) 100%);
+        }
+
+        @keyframes spin {
+            from { background-position: 0 0; }
+            to   { background-position: 0 113.14px; }
+        }
+
+        /* ---------- Sections ---------- */
+        section { padding: 80px 0; }
+        .alt { background: var(--card); }
+
+        .section-head { margin-bottom: 40px; }
+        .section-head h2 { font-size: clamp(2.2rem, 5vw, 3.2rem); margin-bottom: 10px; }
+        .section-head p { color: var(--muted); max-width: 52ch; }
+
+        /* ---------- Services: a price board, like the one on a shop wall ---------- */
+        .price-board {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0 60px;
+        }
+
+        .price-board li {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--charcoal);
+        }
+
+        .price-board .name { font-weight: 600; font-size: 1.15rem; }
+        .price-board small { display: block; color: var(--muted); font-weight: 400; font-size: 0.92rem; }
+        .price-board .dots { flex: 1; border-bottom: 2px dotted var(--charcoal); transform: translateY(-4px); }
+        .price-board .price { font-family: "Barlow Condensed", Arial, sans-serif; font-weight: 700; font-size: 1.6rem; color: var(--gold); }
+
+        /* ---------- Barbers ---------- */
+        .barbers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+
+        .barber { text-align: center; padding: 30px 20px; background: var(--ink); border: 1px solid var(--charcoal); border-radius: 6px; }
+
+        .barber-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: var(--charcoal);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Barlow Condensed", Arial, sans-serif;
+            font-weight: 700;
+            font-size: 2.6rem;
+            color: var(--gold);
+        }
+
+        .barber h3 { color: var(--gold); font-size: 1.7rem; margin-bottom: 6px; }
+        .barber p { color: var(--muted); font-size: 0.98rem; }
+
+        /* ---------- Gallery ---------- */
+        .gallery-frame {
+            background: var(--card);
+            border: 1px solid var(--charcoal);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .gallery-frame img { display: block; width: 100%; height: auto; }
+
+        .gallery-frame figcaption { padding: 14px 20px; color: var(--muted); font-size: 0.95rem; }
+
+        .img-missing { padding: 60px 24px; text-align: center; color: var(--gold); }
+
+        /* ---------- Visit ---------- */
+        .visit { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+
+        .visit h3 { font-size: 1.8rem; color: var(--gold); margin-bottom: 18px; }
+
+        .hours { list-style: none; }
+        .hours li { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--charcoal); }
+        .hours span:last-child { color: var(--muted); }
+
+        .contact p { color: var(--muted); margin-bottom: 8px; }
+        .contact p strong { color: var(--paper); font-weight: 600; }
+        .contact .btn { margin-top: 18px; }
+
+        /* ---------- Footer ---------- */
+        footer { padding: 34px 0; text-align: center; color: var(--muted); border-top: 1px solid var(--charcoal); font-size: 0.95rem; }
+
+        /* ---------- Mobile ---------- */
+        @media (max-width: 800px) {
+            .nav ul { display: none; }
+            .hero { padding: 50px 0 60px; }
+            .hero .wrap { grid-template-columns: 1fr; }
+            .pole { order: -1; transform: scale(0.7); margin: -30px 0 -50px; }
+            .price-board { grid-template-columns: 1fr; }
+            .barbers { grid-template-columns: 1fr; }
+            .visit { grid-template-columns: 1fr; gap: 40px; }
+            section { padding: 60px 0; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .pole-tube { animation: none; }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- EDIT: change "Crown &amp; Cut" to your real shop name (here, in the <title> above, and in the footer) -->
+    <header>
+        <div class="wrap nav">
+            <a class="logo" href="#top">Crown &amp; Cut</a>
+            <ul>
+                <li><a href="#services">Prices</a></li>
+                <li><a href="#barbers">Barbers</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#visit">Visit</a></li>
+            </ul>
+            <a class="btn" href="https://wa.me/2349043216612">Book on WhatsApp</a>
+        </div>
+    </header>
+
+    <main id="top">
+
+        <!-- HERO -->
+        <div class="hero">
+            <div class="wrap">
+                <div>
+                    <h1>Walk in tired.<br>Walk out sharp.</h1>
+                    <p>Haircuts, beard trims and line-ups from barbers who take their time and get the details right.</p>
+                    <div class="hero-buttons">
+                        <a class="btn" href="https://wa.me/2349043216612">Book on WhatsApp</a>
+                        <a class="btn btn-ghost" href="#services">See prices</a>
+                    </div>
+                </div>
+
+                <div class="pole" aria-hidden="true">
+                    <div class="pole-cap"></div>
+                    <div class="pole-tube"></div>
+                    <div class="pole-cap"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SERVICES -->
+        <section id="services" class="alt">
+            <div class="wrap">
+                <div class="section-head">
+                    <h2>Services and prices</h2>
+                    <p>Simple prices, no surprises. Pay after your cut.</p>
+                </div>
+
+                <!-- EDIT: change the names and prices to match your shop -->
+                <ul class="price-board">
+                    <li>
+                        <span class="name">Haircut<small>Any style, finished with a clean edge</small></span>
+                        <span class="dots"></span>
+                        <span class="price">₦3,000</span>
+                    </li>
+                    <li>
+                        <span class="name">Beard trim<small>Shaped and lined up</small></span>
+                        <span class="dots"></span>
+                        <span class="price">₦2,000</span>
+                    </li>
+                    <li>
+                        <span class="name">Haircut and beard<small>The full package</small></span>
+                        <span class="dots"></span>
+                        <span class="price">₦4,500</span>
+                    </li>
+                    <li>
+                        <span class="name">Kids cut<small>Ages 12 and under</small></span>
+                        <span class="dots"></span>
+                        <span class="price">₦2,000</span>
+                    </li>
+                    <li>
+                        <span class="name">Line-up<small>Sharp hairline and edges only</small></span>
+                        <span class="dots"></span>
+                        <span class="price">₦1,500</span>
+                    </li>
+                    <li>
+                        <span class="name">Hair dye<small>Colour and finish</small></span>
+                        <span class="dots"></span>
+                        <span class="price">₦5,000</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- BARBERS -->
+        <section id="barbers">
+            <div class="wrap">
+                <div class="section-head">
+                    <h2>Your barbers</h2>
+                    <p>Tell us who you want when you book, or let us match you with the best fit.</p>
+                </div>
+
+                <!-- EDIT: put your real barbers' names and what they do best -->
+                <div class="barbers">
+                    <div class="barber">
+                        <div class="barber-icon">C</div>
+                        <h3>Chidi</h3>
+                        <p>Fades and clean line-ups</p>
+                    </div>
+                    <div class="barber">
+                        <div class="barber-icon">T</div>
+                        <h3>Tunde</h3>
+                        <p>Beard shaping and trims</p>
+                    </div>
+                    <div class="barber">
+                        <div class="barber-icon">E</div>
+                        <h3>Emeka</h3>
+                        <p>Kids cuts and classic styles</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GALLERY -->
+        <section id="gallery" class="alt">
+            <div class="wrap">
+                <div class="section-head">
+                    <h2>Recent work</h2>
+                    <p>A look at the cuts our clients leave with.</p>
+                </div>
+
+                <figure class="gallery-frame">
+                    <!--
+                        Your picture. It lives inside the crown-cut-barbershop folder, next to this index.html.
+                        If you move the picture or rename it, update src="" below to match.
+                        The onerror part shows a message on the page if the picture is not found (you can delete it later).
+                    -->
+                    <img src="crown-cut-barbershop/barbershop-gallery.png" alt="Haircuts and styles from our barbershop"
+                         onerror="this.outerHTML='<div class=&quot;img-missing&quot;>Picture not found. Check that crown-cut-barbershop/barbershop-gallery.png still exists, then refresh.</div>'">
+                    <figcaption>Fades, line-ups and beard work from the shop.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- VISIT -->
+        <section id="visit">
+            <div class="wrap visit">
+                <div>
+                    <h3>Opening hours</h3>
+                    <!-- EDIT: your real opening times -->
+                    <ul class="hours">
+                        <li><span>Monday to Friday</span><span>8:00 am to 8:00 pm</span></li>
+                        <li><span>Saturday</span><span>8:00 am to 9:00 pm</span></li>
+                        <li><span>Sunday</span><span>1:00 pm to 6:00 pm</span></li>
+                    </ul>
+                </div>
+
+                <div class="contact">
+                    <h3>Find us</h3>
+                    <!-- EDIT: your real address and phone number -->
+                    <p><strong>Address:</strong> 1 Onwuegbuna Street, Abakaliki, Ebonyi State</p>
+                    <p><strong>Phone:</strong> 0904 321 6612</p>
+                    <p>Message us on WhatsApp with the service you want and a time that works for you.</p>
+                    <a class="btn" href="https://wa.me/2349043216612">Book on WhatsApp</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="wrap">&copy; 2026 Crown &amp; Cut. All rights reserved.</div>
+    </footer>
+
+</body>
+</html>
